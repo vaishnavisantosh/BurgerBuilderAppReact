@@ -10,7 +10,7 @@ const layout = (props) => (
             {props.children}
         </main>
     </Aux>
-    
+
 
 );
 
