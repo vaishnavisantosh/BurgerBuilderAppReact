@@ -1,8 +1,9 @@
 import React from 'react';
-import classes from './ButtonStyle'
-const buttonStyle=(props)=>(
+import classes from './ButtonStyle.css';
 
-    <button className={[classes.Button,classes[props.bType]].join(' ')}
+const buttonStyle = (props) => (
+
+    <button className={[classes.Button,classes[props.btntype]].join(' ')}
     onClick={props.clicked}>
     {props.children}
     </button>
