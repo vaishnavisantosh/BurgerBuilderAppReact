@@ -75,32 +75,33 @@ class BurgerBuilder extends Component {
     }
 
     continueHandler=()=>{
-        this.setState({
-            loading:true
-        })
-      let  orderObject={
-            ingredients:this.state.ingredients,
-            price:this.state.totalPrice,
-            customer:{
-                name:'vaishnavi',
-                address:{
-                    city:'pune'
-                }
-            },
-            modeOfDelivery:'fastest'
-        }
-        //alert("continue");
-        Axios.post('/order.json',orderObject).then(response=>{
-            console.log(response);
-            this.setState({
-                loading:false
-            })
-        }).catch(error => {
-            this.setState({
-                loading:false
-            })
+    //     this.setState({
+    //         loading:true
+    //     })
+    //   let  orderObject={
+    //         ingredients:this.state.ingredients,
+    //         price:this.state.totalPrice,
+    //         customer:{
+    //             name:'vaishnavi',
+    //             address:{
+    //                 city:'pune'
+    //             }
+    //         },
+    //         modeOfDelivery:'fastest'
+    //     }
+    //     //alert("continue");
+    //     Axios.post('/order.json',orderObject).then(response=>{
+    //         console.log(response);
+    //         this.setState({
+    //             loading:false
+    //         })
+    //     }).catch(error => {
+    //         this.setState({
+    //             loading:false
+    //         })
 
-        })
+    //     })
+    this.props.history.push('/checkout');
     }
     
     cancelHandler= () =>{
