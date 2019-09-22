@@ -15,10 +15,10 @@ const  BasicPriceOfIngredients = {
 class BurgerBuilder extends Component {
     state = {
         ingredients: {
-            cheese: 0,
-            salad: 0,
-            bacon: 0,
-            meat: 0,
+            cheese: 1,
+            salad: 1,
+            bacon: 1,
+            meat: 1,
         },
         totalPrice:15,
         purchasable:false,
@@ -101,7 +101,16 @@ class BurgerBuilder extends Component {
     //         })
 
     //     })
-    this.props.history.push('/checkout');
+
+    const queryaparams=[];
+    for(let i in this.state.ingredients){
+        queryaparams.push(encodeURIComponent(i)+ '='+encodeURIComponent(this.state.ingredients[i]));
+    }
+    const queryString=queryaparams.join('&');
+    this.props.history.push({
+        pathname:'/checkout',
+        search:'?'+queryString
+    });
     }
     
     cancelHandler= () =>{

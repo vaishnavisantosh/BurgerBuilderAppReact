@@ -4,7 +4,7 @@ import burgerIcon from '../../Assets/images/burger-logo.png';
 
 
 const icon =(props)=>(
-<div className={classes.Icon} >
+<div className={classes.Icon} style={{height:props.height}}>
     <img src={burgerIcon} alt="MyBurger" ></img>
 </div>
 );
