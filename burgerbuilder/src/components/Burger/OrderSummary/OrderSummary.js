@@ -7,6 +7,7 @@ const ordersummary = (props) => {
 
     const showSummary = ingredientsArray.map(ikay => {
         return <li key={ikay}>{ikay}:{props.ingredients[ikay]}</li>
+        
     });
 
     return (
@@ -18,6 +19,7 @@ const ordersummary = (props) => {
             <p><strong>Total Price:{props.totalPrice}</strong></p>
             <Button btntype = "Danger" clicked={props.cancled} >Cancel Order</Button>
             <Button btntype = "Success" clicked={props.continue} >Continue Order</Button>
+            
         </>);
 
 }

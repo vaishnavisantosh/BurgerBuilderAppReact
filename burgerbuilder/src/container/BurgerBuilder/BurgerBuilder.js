@@ -15,10 +15,10 @@ const  BasicPriceOfIngredients = {
 class BurgerBuilder extends Component {
     state = {
         ingredients: {
-            cheese: 1,
-            salad: 1,
-            bacon: 1,
-            meat: 1,
+            cheese: 0,
+            salad: 0,
+            bacon: 0,
+            meat: 0,
         },
         totalPrice:15,
         purchasable:false,
@@ -75,37 +75,13 @@ class BurgerBuilder extends Component {
     }
 
     continueHandler=()=>{
-    //     this.setState({
-    //         loading:true
-    //     })
-    //   let  orderObject={
-    //         ingredients:this.state.ingredients,
-    //         price:this.state.totalPrice,
-    //         customer:{
-    //             name:'vaishnavi',
-    //             address:{
-    //                 city:'pune'
-    //             }
-    //         },
-    //         modeOfDelivery:'fastest'
-    //     }
-    //     //alert("continue");
-    //     Axios.post('/order.json',orderObject).then(response=>{
-    //         console.log(response);
-    //         this.setState({
-    //             loading:false
-    //         })
-    //     }).catch(error => {
-    //         this.setState({
-    //             loading:false
-    //         })
-
-    //     })
+   
 
     const queryaparams=[];
     for(let i in this.state.ingredients){
         queryaparams.push(encodeURIComponent(i)+ '='+encodeURIComponent(this.state.ingredients[i]));
     }
+  queryaparams.push('price=' + this.state.totalPrice);  
     const queryString=queryaparams.join('&');
     this.props.history.push({
         pathname:'/checkout',
