@@ -6,6 +6,8 @@ import OrderSummary from '../../components/Burger/OrderSummary/OrderSummary'
 import Spinner from '../../components/UI/Spinner/Spinner';
 import Axios from '../../Axois';
 import { publicEncrypt } from 'crypto';
+import {connect} from 'react-redux';
+
 const  BasicPriceOfIngredients = {
     cheese:2,
     salad:3,
@@ -14,12 +16,7 @@ const  BasicPriceOfIngredients = {
 }
 class BurgerBuilder extends Component {
     state = {
-        ingredients: {
-            cheese: 0,
-            salad: 0,
-            bacon: 0,
-            meat: 0,
-        },
+        ingredients: null,
         totalPrice:15,
         purchasable:false,
         purchasing:false,
@@ -132,4 +129,20 @@ class BurgerBuilder extends Component {
 }
 
 
-export default BurgerBuilder;
+mapStateToProp=state=>{
+return({
+ingredients:state.ingredients,
+totalCount:state.totalPrice
+})
+}
+
+mapPropToDispatch=dispatch=>{
+return{
+    add:(igname)=>dispatch({type:ADD_INGREDIENTS,ingredientName:igname}),
+    rem:(igname)=>dispatch({type:DELETE_INGREDIENTS,ingredientName:igname})
+
+}
+}
+
+
+export default  connect(mapStateToProp,mapPropToDispatch)(BurgerBuilder);
