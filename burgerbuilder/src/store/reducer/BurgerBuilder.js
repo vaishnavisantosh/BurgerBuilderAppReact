@@ -5,7 +5,9 @@ const initialState={
     bacon:0,
     meat:0
     },
-    totalPrice:15
+    totalPrice:15,
+    error:false
+    
 
 }
 
@@ -13,7 +15,7 @@ const initialState={
 const reducer=(state=initialState,action)=>{
     switch(action.type){
 
-        case ADD_INGREDIENTS :
+        case 'ADD_INGREDIENTS' :
             return{
                 ...state,
                 ingredients:{
@@ -24,11 +26,14 @@ const reducer=(state=initialState,action)=>{
 
             }
 
-        case DELETE_INGREDIENTS:
+        case 'DELETE_INGREDIENTS':
             return{
                 ...state,
+                ingredients:{
+                    ...state.ingredients,
                 [action.ingredientName]:state.ingredientName[action.ingredientName]-1
             }
+        }
             
         default:
             return state;    
