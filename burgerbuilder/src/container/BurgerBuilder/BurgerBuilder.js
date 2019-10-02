@@ -17,10 +17,10 @@ const  BasicPriceOfIngredients = {
 class BurgerBuilder extends Component {
     state = {
       //  ingredients: null,
-        totalPrice:15,
-        purchasable:false,
+        //totalPrice:15,
+        //purchasable:false,
         purchasing:false,
-        loading:false,
+        //loading:false,
         //error:false
         
     }
@@ -34,8 +34,11 @@ class BurgerBuilder extends Component {
 
         const sum=ingredientValues.reduce((sum,nxtEle)=>{return sum+nxtEle},0);
         //console.log(sum);
-        this.setState({purchasable:sum>0});
+        //this.setState({purchasable:sum>0});
+        return sum >0;
     }
+
+    
 
     addIngredientHandler =(type)=>{
         const oldCount=this.state.ingredients[type];
@@ -76,16 +79,19 @@ class BurgerBuilder extends Component {
     continueHandler=()=>{
    
 
-    const queryaparams=[];
-    for(let i in this.state.ingredients){
-        queryaparams.push(encodeURIComponent(i)+ '='+encodeURIComponent(this.state.ingredients[i]));
-    }
-  queryaparams.push('price=' + this.state.totalPrice);  
-    const queryString=queryaparams.join('&');
-    this.props.history.push({
-        pathname:'/checkout',
-        search:'?'+queryString
-    });
+//     const queryaparams=[];
+//     for(let i in this.state.ingredients){
+//         queryaparams.push(encodeURIComponent(i)+ '='+encodeURIComponent(this.state.ingredients[i]));
+//     }
+//   queryaparams.push('price=' + this.state.totalPrice);  
+//     const queryString=queryaparams.join('&');
+//     this.props.history.push({
+//         pathname:'/checkout',
+//         search:'?'+queryString
+//     });
+
+    this.props.history.push('/checkout');
+
     }
     
     cancelHandler= () =>{
@@ -97,33 +103,46 @@ class BurgerBuilder extends Component {
             ...this.props.ingredients
         }
         for(let key in disabledInfo){
+           
             disabledInfo[key]=disabledInfo[key]<=0
         }
 
-        let orderSummary=<OrderSummary 
-        ingredients={this.props.ingredients}  
-        cancled={this.cancelHandler}
-        continue={this.continueHandler}
-        totalPrice={this.state.totalPrice}/>;
+        let orderSummary=null;
+        let burger = this.props.error ? <p>Ingredients can't be loaded!</p> : <Spinner />;
+
+
+        // let orderSummary=<OrderSummary 
+        // ingredients={this.props.ingredients}  
+        // cancled={this.cancelHandler}
+        // continue={this.continueHandler}
+        // totalPrice={this.state.totalPrice}/>;
 
         if(this.props.ingredients){
-            orderSummary = <Spinner/>;
+            burger=(
+                <>
+            <Burger ingredients={this.props.ingredients} />
+            <BuildControls
+            ingredientAdded={this.props.add}
+            ingredientsRemoved={this.props.rem}
+            ordered={this.purchasingHandler}
+            disabled={disabledInfo}
+            purchasable={this.updatePurchaseState(this.props.ingredients)}
+            price={this.state.totalPrice}
+            />
+            </>)
+             orderSummary = <OrderSummary
+             ingredients={this.props.ingredients}
+             price={this.props.price}
+             purchaseCancelled={this.cancelHandler}
+             purchaseContinued={this.continueHandler} />;
         }
         
         return (
             <>
-                <Modal showSummary={this.state.purchasing}>
+                <Modal showSummary={this.state.purchasing} modalClosed={this.cancelHandler}>
                     {orderSummary}            
                 </Modal>
-                <Burger ingredients={this.props.ingredients} />
-                <BuildControls
-                ingredientAdded={this.props.add}
-                ingredientsRemoved={this.props.rem}
-                ordered={this.purchasingHandler}
-                disabled={disabledInfo}
-                purchasable={this.state.purchasable}
-                price={this.state.totalPrice}
-                />
+                {burger}
             </>
 
         );

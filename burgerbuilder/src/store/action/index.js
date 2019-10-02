@@ -1,1 +1,1 @@
-export {add,rem} from './BurgerBulider';
+export {add,rem,initIngredients,fetchIngredientsFailed,setIngredients} from './BurgerBulider';
