@@ -4,6 +4,8 @@ import classes from './ContactData.css';
 import Axios from '../../../Axois';
 import Spinner from '../../../components/UI/Spinner/Spinner';
 import Input from '../../../components/UI/Input/Input';
+
+
 class ContactData extends Component {
 
     state = {
@@ -68,9 +70,9 @@ class ContactData extends Component {
     orderHandler = (event) => {
         event.preventDefault();
         //console.log(this.props.ingredients);
-        this.setState({
-            loading: true
-        })
+        // this.setState({
+        //     loading: true
+        // })
         let orderObject = {
             ingredients: this.props.ingredients,
             price: this.props.totalPrice,
