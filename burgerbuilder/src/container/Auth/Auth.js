@@ -113,7 +113,7 @@ class Auth extends Component {
             <div className={classes.Auth}>
                 <form onSubmit={this.submitHandler}>
                     {form}
-                    <Button btnType="Success">SUBMIT</Button>
+                    <Button btntype="Success">SUBMIT</Button>
                 </form>
             </div>
         );

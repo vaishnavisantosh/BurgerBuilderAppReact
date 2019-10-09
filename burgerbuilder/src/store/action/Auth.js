@@ -1,20 +1,21 @@
+import * as actionTypes from './actionTypes';
 
 export const authStart = () => {
     return {
-        type: 'AUTH_START'
+        type: actionTypes.AUTH_START
     };
 };
 
 export const authSuccess = (authData) => {
     return {
-        type: 'AUTH_SUCCESS',
+        type: actionTypes.AUTH_SUCCESS,
         authData: authData
     };
 };
 
 export const authFail = (error) => {
     return {
-        type:'AUTH_FAIL',
+        type:actionTypes.AUTH_FAIL,
         error: error
     };
 };

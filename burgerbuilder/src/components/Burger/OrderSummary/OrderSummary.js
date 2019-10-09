@@ -1,14 +1,21 @@
 import React from 'react';
+import {Component} from 'react';
 import Button from '../../UI/ButtonStyle/ButtonStyle';
 
 
-const ordersummary = (props) => {
-    const ingredientsArray = Object.keys(props.ingredients);
+class Ordersummary extends Component {
+    componentWillUpdate() {
+        console.log('[OrderSummary] WillUpdate');
+    }
+
+    render(){
+    const ingredientsArray = Object.keys(this.props.ingredients);
 
     const showSummary = ingredientsArray.map(ikay => {
-        return <li key={ikay}>{ikay}:{props.ingredients[ikay]}</li>
+        return <li key={ikay}>{ikay}:{this.props.ingredients[ikay]}</li>
         
     });
+
 
     return (
         <>
@@ -16,16 +23,17 @@ const ordersummary = (props) => {
             <ol>
                 {showSummary}
             </ol>
-            <p><strong>Total Price:{props.totalPrice}</strong></p>
-            <Button btntype = "Danger" clicked={props.cancled} >Cancel Order</Button>
-            <Button btntype = "Success" clicked={props.continue} >Continue Order</Button>
+            <p><strong>Total Price:{this.props.totalPrice}</strong></p>
+            <p>Continue to Checkout?</p>
+            <Button btntype = "Danger" clicked={this.props.cancled} >Cancel Order</Button>
+            <Button btntype = "Success" clicked={this.props.continue} >Continue Order</Button>
             
         </>);
 
 }
+}
 
-
-export default ordersummary;
+export default Ordersummary;
 
 
 
