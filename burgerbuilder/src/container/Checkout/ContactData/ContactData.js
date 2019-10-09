@@ -78,6 +78,8 @@ class ContactData extends Component {
                     required: true,
                     isEmail: true
             },
+            valid: false,
+                touched: false
         },
             modeOfDelivery: {
 
@@ -111,7 +113,8 @@ class ContactData extends Component {
         const order = {
             ingredients: this.props.ings,
             price: this.props.price,
-            orderData: formData
+            orderData: formData,
+            userId: this.props.userId
         }
 
         this.props.onOrderBurger(order);

@@ -1,24 +1,28 @@
-import React, { Component } from 'react';
+import React, { Component ,useState } from 'react';
+
 import Aux from '../../hoc/Aux';
 import classes from './Layout.css'
 import Toolbar from '../../components/RedirectionComponents/Toolbar/Toolbar';
 import SideDrawer from '../../components/RedirectionComponents/SideDrawer/SideDrawer';
-class Layout extends Component {
+
+
+
+ const layout =props=> {
     state = {
         showSideDrawer: false
     }
 
+    const [isSideDrawerVisible,setIsSideDrawervisible] = useState(false);
+
     sideDrawerClosedHandler = () => {
-        this.setState({ showSideDrawer: false });
+        setIsSideDrawervisible(false);
     }
 
     sideDrawerToggleHandler = () => {
-        this.setState((prevState) => {
-            return { showSideDrawer: !prevState.showSideDrawer };
-        });
+        setIsSideDrawervisible(!isSideDrawerVisible);
     }
 
-    render() {
+   
         return (
             <Aux>
                 <Toolbar drawerToggleClicked={this.sideDrawerToggleHandler} />
@@ -30,7 +34,7 @@ class Layout extends Component {
                 </main>
             </Aux>
         )
-    }
+    
 }
 
 export default Layout;

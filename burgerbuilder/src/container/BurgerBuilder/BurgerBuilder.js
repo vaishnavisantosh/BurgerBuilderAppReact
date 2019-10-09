@@ -9,12 +9,12 @@ import Axios from 'axios';
 import errorHandler from '../../hoc/ErrorHandler/ErrorHandler';
 import * as actions from '../../store/action/index';
 
-const  BasicPriceOfIngredients = {
-    cheese:2,
-    salad:3,
-    bacon:4,
-    meat:6
-}
+// const  BasicPriceOfIngredients = {
+//     cheese:2,
+//     salad:3,
+//     bacon:4,
+//     meat:6
+// }
 class BurgerBuilder extends Component {
     state = {
       //  ingredients: null,
@@ -79,7 +79,12 @@ class BurgerBuilder extends Component {
 
 
     purchasingHandler = () =>{
-        this.setState({purchasing:true});
+        if (this.props.isAuthenticated) {
+            this.setState( { purchasing: true } );
+        } else {
+            this.props.onSetAuthRedirectPath('/checkout');
+            this.props.history.push('/auth');
+        }
     }
 
     continueHandler=()=>{
@@ -114,8 +119,7 @@ this.props.onInitPurchase();
         }
 
         let orderSummary=null;
-        let burger=null; 
-      //= this.props.error ? <p>Ingredients can't be loaded!</p> : <Spinner />;
+        let burger= this.props.error ? <p>Ingredients can't be loaded!</p> : <Spinner />;
 
 
         // let orderSummary=<OrderSummary 
@@ -161,7 +165,8 @@ const mapStateToProp=state=>{
 return{
 ingredients:state.burgerBuilder.ingredients,
 totalCount:state.burgerBuilder.totalPrice,
-error:state.burgerBuilder.error
+error:state.burgerBuilder.error,
+isAuthenticated: state.auth.token !== null
 }
 }
 
@@ -170,7 +175,8 @@ return{
     add:(igname)=>dispatch(actions.add(igname)),
     rem:(igname)=>dispatch(actions.rem(igname)),
     onInitIngredients: () => dispatch(actions.initIngredients()),
-    onInitPurchase: () => dispatch(actions.purchaseInit())
+    onInitPurchase: () => dispatch(actions.purchaseInit()),
+    onSetAuthRedirectPath: (path) => dispatch(actions.setAuthRedirectPath(path))
 
 }
 }

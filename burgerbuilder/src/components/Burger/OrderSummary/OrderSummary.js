@@ -4,9 +4,7 @@ import Button from '../../UI/ButtonStyle/ButtonStyle';
 
 
 class Ordersummary extends Component {
-    componentWillUpdate() {
-        console.log('[OrderSummary] WillUpdate');
-    }
+   
 
     render(){
     const ingredientsArray = Object.keys(this.props.ingredients);
